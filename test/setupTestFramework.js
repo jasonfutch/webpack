@@ -21,6 +21,26 @@ expect.extend({
 					`  ${this.utils.printReceived(objType)}`;
 
 		return { message, pass };
+	},
+	toContainMatch(received, expected) {
+		const pass = received.some(item => item.includes(expected))
+		const message = pass
+			? () => 
+					this.utils.matcherHint(".not.toContainMatch") +
+					"\n\n" +
+					"Expected array:\n" +
+					`  ${this.utils.printExpected(expected)}\n` +
+					"To not match value:\n" +
+					`  ${this.utils.printReceived(expected)}`
+			: () =>
+					this.utils.matcherHint(".toContainMatch") +
+					"\n\n" +
+					"Expected array:\n" +
+					`  ${this.utils.printExpected(expected)}\n` +
+					"To match value:\n" +
+					`  ${this.utils.printReceived(expected)}`;
+		
+		return { message, pass }
 	}
 });
 
